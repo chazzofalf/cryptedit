@@ -15,7 +15,6 @@ import io
 import shutil
 import traceback
 import stat
-import subprocess
 salt=b'VRv\x17~\xf7\xbd\x95v\x04I\xbbH\xd6L!Eb\xfd\x90{\xa3\xf8L\xbaS\x0b\xfd\xf9\x10JU'
 def check_auth(p:str,filepath:pathlib.Path):
     return True
@@ -143,11 +142,8 @@ def main():
                                     
                             try:
                                 with open(str(scriptfile),'w') as scriptout:
-                                    scriptout.write(script_text)
-                                    
-                                subprocess.run(['ls','-lha',str(tempdir)])
-                                os.chmod(str(scriptfile),stat.S_IEXEC  | stat.S_IXGRP | stat.S_IXOTH | stat.S_IREAD | stat.S_IRGRP | stat.S_IROTH)
-                                subprocess.run(['ls','-lha',str(tempdir)])
+                                    scriptout.write(script_text)                                                                    
+                                os.chmod(str(scriptfile),stat.S_IEXEC  | stat.S_IXGRP | stat.S_IXOTH | stat.S_IREAD | stat.S_IRGRP | stat.S_IROTH)                                
                                 pty.spawn([str(scriptfile)],read,read)
                                 editor_success=True
                             except Exception as e:
